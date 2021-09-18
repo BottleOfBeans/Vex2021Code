@@ -25,14 +25,12 @@ using namespace vex;
 void moveForward(int degreers){
     //Left_Motor_.resetRotation();
     LeftBack.spinFor(forward, 360, degrees);
-    LeftFront.spinFor(forward, 360, degrees);
+    
     RightBack.spinFor(forward, 360, degrees);
-    RightFront.spinFor(forward, 360, degrees);
-
+   
     LeftBack.stop();
-    LeftFront.stop();
     RightBack.stop();
-    RightFront.stop();
+    
 
     
 }
@@ -44,8 +42,6 @@ void Turn_Right(int degreess){
     RightFront.resetRotation(); 
 
     while (Inertial.rotation(degrees) <degreess ){
-        LeftFront.spin(forward, 50, pct);
-        RightFront.spin(reverse, 50, pct);
         RightBack.spin(reverse, 50, pct);
         LeftBack.spin(forward, 50, pct);
     }
