@@ -24,10 +24,13 @@ using namespace vex;
 
 void moveForward(int degreers){
     //Left_Motor_.resetRotation();
-    LeftBack.spinFor(forward, 360, degrees);
-    
-    RightBack.spinFor(forward, 360, degrees);
-   
+    LeftBack.resetRotation();
+    RightBack.resetRotation();
+    while (LeftBack.position(degrees)<360){
+      LeftBack.spin(fwd);
+      RightBack.spin(fwd);
+    }
+
     LeftBack.stop();
     RightBack.stop();
     
