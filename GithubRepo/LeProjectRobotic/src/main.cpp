@@ -43,8 +43,9 @@ void Turn_Right(int degreess){
     LeftFront.resetRotation();
     RightBack.resetRotation();
     RightFront.resetRotation(); 
-
-    while (Inertial.rotation(degrees) <degreess ){
+    int currentDeg = Inertial.rotation(degrees);
+    while ( currentDeg <degreess ){
+        RightBack.setVelocity((currentDeg/degreess)*10, percent);
         RightBack.spin(reverse, 50, pct);
         LeftBack.spin(forward, 50, pct);
     }
