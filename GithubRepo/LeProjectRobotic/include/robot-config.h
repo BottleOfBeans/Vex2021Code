@@ -7,6 +7,8 @@ extern motor LeftBack;
 extern motor LeftFront;
 extern motor RightBack;
 extern motor RightFront;
+extern inertial Inertial;
+extern motor_group Lift;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
