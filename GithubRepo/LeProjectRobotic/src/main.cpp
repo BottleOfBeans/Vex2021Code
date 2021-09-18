@@ -38,7 +38,7 @@ void moveForward(int degreers){
     
 }
 
-void driveTurn(int degs){
+void Turn_Right(int degs){
   Inertial.setRotation(0, degrees);
   double kP = 1.1;
   
