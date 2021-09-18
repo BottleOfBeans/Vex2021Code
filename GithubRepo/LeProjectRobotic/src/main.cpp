@@ -46,8 +46,9 @@ void Turn_Right(int degreess){
     int currentDeg = Inertial.rotation(degrees);
     while ( currentDeg <degreess ){
         RightBack.setVelocity((currentDeg/degreess)*10, percent);
-        RightBack.spin(reverse, 50, pct);
-        LeftBack.spin(forward, 50, pct);
+        LeftBack.setVelocity((currentDeg/degreess)*10, percent);
+        RightBack.spin(reverse);
+        LeftBack.spin(forward);
     }
         RightBack.stop();
         RightFront.stop();
@@ -58,6 +59,8 @@ int main() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
   Inertial.calibrate();
+  Inertial.setRotation(0, degrees);
+
   this_thread::sleep_for(1000);
   moveForward(360);
   Turn_Right(90);
