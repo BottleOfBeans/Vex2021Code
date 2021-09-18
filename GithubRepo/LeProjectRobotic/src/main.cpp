@@ -21,74 +21,45 @@
 #include "vex.h"
 using namespace vex;
 
-void moveWheel(int Rightamount, int Leftamount) {
-    RightFront.spinFor(forward,Rightamount,degrees);
-    RightBack.spinFor(forward,Rightamount,degrees);
-    LeftFront.spinFor(forward,Leftamount,degrees);
-    LeftBack.spinFor(forward,Leftamount,degrees);
-     
-  }
 
-void moveLift(int liftAmount, int ZeroIsFwd) {
-    if (ZeroIsFwd == 0){
-      Lift.spinFor(forward,liftAmount,degrees);
-    }else{
-      Lift.spinFor(reverse,liftAmount,degrees);
-    }
-  }
-  
+void moveForward(int degreers){
+    //Left_Motor_.resetRotation();
+    LeftBack.spinFor(forward, 360, degrees);
+    LeftFront.spinFor(forward, 360, degrees);
+    RightBack.spinFor(forward, 360, degrees);
+    RightFront.spinFor(forward, 360, degrees);
 
-
-void TurnLeft() {
-    RightFront.spin(forward);
-    RightBack.spin(forward);
-    LeftFront.spin(reverse);
-    LeftBack.spin(reverse);
-     
-     
-  }
-void TurnRight() {
-    RightFront.spin(reverse);
-    RightBack.spin(reverse);
-    LeftFront.spin(forward);
-    LeftBack.spin(forward);
-     
-     
-  }
-  void EverythingStop(){
-    RightFront.stop();
-    RightBack.stop();
-    LeftFront.stop();
     LeftBack.stop();
-  }
-  void StopLift(){
-    Lift.stop();
-  }
+    LeftFront.stop();
+    RightBack.stop();
+    RightFront.stop();
 
-void turn(int amount){
-  if (amount>0){
-    while(amount>Inertial.rotation(degrees)){
-      TurnRight();
-    }
-    EverythingStop();
-  } else {
-    while(amount<Inertial.rotation(degrees)){
-      TurnLeft(); }
-    EverythingStop();
-  }
     
 }
 
+void Turn_Right(int degreess){
+    LeftBack.resetRotation();
+    LeftFront.resetRotation();
+    RightBack.resetRotation();
+    RightFront.resetRotation(); 
 
+    while (Inertial.rotation(degrees) <degreess ){
+        LeftFront.spin(forward, 50, pct);
+        RightFront.spin(reverse, 50, pct);
+        RightBack.spin(reverse, 50, pct);
+        LeftBack.spin(forward, 50, pct);
+    }
+        RightBack.stop();
+        RightFront.stop();
+        LeftBack.stop();
+        LeftFront.stop();
+}
 int main() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
-
-
-  moveWheel(360, 360);
-  turn(90);
-  moveLift(0,180);
-  wait(1000,seconds);
-  moveLift(1,180);
+  Inertial.calibrate();
+  this_thread::sleep_for(1000);
+  moveForward(360);
+  Turn_Right(90);
   
 }
