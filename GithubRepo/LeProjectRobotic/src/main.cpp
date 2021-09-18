@@ -38,23 +38,36 @@ void moveForward(int degreers){
     
 }
 
-void Turn_Right(int degreess){
-    LeftBack.resetRotation();
-    LeftFront.resetRotation();
-    RightBack.resetRotation();
-    RightFront.resetRotation(); 
-    int currentDeg = Inertial.rotation(degrees);
-    while ( currentDeg <degreess ){
-        RightBack.setVelocity((currentDeg/degreess)*10, percent);
-        LeftBack.setVelocity((currentDeg/degreess)*10, percent);
-        RightBack.spin(reverse);
-        LeftBack.spin(forward);
+void driveTurn(int degs){
+  Inertial.setRotation(0, degrees);
+  double kP = 1.1;
+  
+  while(true) {
+    double Angle = Inertial.angle(deg);
+    double Power;
+    if(degs > 0)
+    {
+      Power = (degs - Angle) * kP;
     }
-        RightBack.stop();
-        RightFront.stop();
-        LeftBack.stop();
-        LeftFront.stop();
+    else if (degs < 0)
+    {
+      Power = (degs + Angle) * kP;
+    }
+
+    while(abs(degs) > fabs(Angle) - 5)
+    {
+      LeftBack.spin(vex::directionType::rev, Power, pct);
+      RightBack.spin(fwd, Power, pct);
+      
+    }
+    LeftBack.stop();
+    RightBack.stop();
+    
+  }
 }
+
+
+
 int main() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
