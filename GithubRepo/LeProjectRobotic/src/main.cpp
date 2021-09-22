@@ -16,66 +16,44 @@
 // RightFront           motor         10              
 // Inertial             inertial      7               
 // Lift                 motor_group   1, 2            
+// Controller1          controller                    
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
 using namespace vex;
+void DriverCode(){
+    while(true){
+        
+        int lM = Controller1.Axis3.position(percent) + Controller1.Axis4.position(percent);
+        int rM = Controller1.Axis3.position(percent) - Controller1.Axis4.position(percent);
 
-
-void moveForward(int degreers){
-    //Left_Motor_.resetRotation();
-    LeftBack.resetRotation();
-    RightBack.resetRotation();
-    while (LeftBack.position(degrees)<360){
-      LeftBack.spin(fwd);
-      RightBack.spin(fwd);
+        if ( (lM)>100)lM = 100;
+        if ( (lM)<-100)lM = -100;
+        
+        if ( (rM)>100)rM = 100;
+        if ( (rM)<-100)rM = -100;
+        
+        LeftBack.spin(fwd, lM,  pct);
+        RightBack.spin(fwd, rM,  pct);
+        LeftFront.spin(fwd, lM,  pct);
+        RightFront.spin(fwd, rM,  pct);
+    
+      }
     }
-
-    LeftBack.stop();
-    RightBack.stop();
-    
-
-    
-}
-
-void Turn_Right(int degs){
-  Inertial.setRotation(0, degrees);
-  double kP = 1.1;
+void AutoCode(){
   
-  while(true) {
-    double Angle = Inertial.angle(deg);
-    double Power;
-    if(degs > 0)
-    {
-      Power = (degs - Angle) * kP;
-    }
-    else if (degs < 0)
-    {
-      Power = (degs + Angle) * kP;
-    }
-
-    while(abs(degs) > fabs(Angle) - 5)
-    {
-      LeftBack.spin(vex::directionType::rev, Power, pct);
-      RightBack.spin(fwd, Power, pct);
-      
-    }
-    LeftBack.stop();
-    RightBack.stop();
-    
-  }
 }
+
 
 
 
 int main() {
-  // Initializing Robot Configuration. DO NOT REMOVE!
-  vexcodeInit();
+  // Initial`();
   Inertial.calibrate();
   Inertial.setRotation(0, degrees);
-
   this_thread::sleep_for(1000);
-  moveForward(360);
-  Turn_Right(90);
-  
+
+  //Code After Here  
+  DoThis();
+
 }
