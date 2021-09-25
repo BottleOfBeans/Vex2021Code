@@ -40,7 +40,7 @@ void DriverCode(){
     
       }
     }
-void driveTurn(int degs){
+void DriveTurn(int degs){
   Inertial.setRotation(0, degrees);
   double kP = 1.1;
   
@@ -70,7 +70,7 @@ void driveTurn(int degs){
   }
 }
 
-void driveForward(double inches) {
+void DriveForward(double inches) {
   LeftFront.resetPosition();
   RightFront.resetPosition();
 
@@ -139,9 +139,11 @@ void driveForward(double inches) {
 
 
 void AutoCode(){
-  //DriveForward is in inches
-  //Turn is in Degrees
-  
+  //DriveForward() is in inches
+  //DriveTurn is in Degrees
+  DriveForward(4);
+  DriveTurn(30);
+
 }
 
 
