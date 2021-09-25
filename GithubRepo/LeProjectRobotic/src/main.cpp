@@ -10,7 +10,7 @@
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
-// LeftBack             motor         11              
+// LeftFrontBack             motor         11              
 // LeftFront            motor         4               
 // RightBack            motor         20              
 // RightFront           motor         10              
@@ -40,11 +40,109 @@ void DriverCode(){
     
       }
     }
-void AutoCode(){
+void driveTurn(int degs){
+  Inertial.setRotation(0, degrees);
+  double kP = 1.1;
   
+  while(true) {
+    double Angle = Inertial.angle(deg);
+    double Power;
+    if(degs > 0)
+    {
+      Power = (degs - Angle) * kP;
+    }
+    else if (degs < 0)
+    {
+      Power = (degs + Angle) * kP;
+    }
+
+    while(abs(degs) > fabs(Angle) - 5)
+    {
+      LeftBack.spin(vex::directionType::rev, Power, pct);
+      RightBack.spin(fwd, Power, pct);
+      LeftFront.spin(vex::directionType::rev, Power, pct);
+      RightFront.spin(fwd, Power, pct);
+    }
+    LeftBack.stop();
+    RightBack.stop();
+    LeftFront.stop();
+    RightFront.stop();
+  }
+}
+
+void driveForward(double inches) {
+  LeftFront.resetPosition();
+  RightFront.resetPosition();
+
+  double targetDeg = (inches*360)/(4*3.1415); //4 inch wheel??
+
+  double leftVal = LeftFront.position(degrees);
+  double rightVal = RightFront.position(degrees);
+
+  double leftlastErr = targetDeg - leftVal;
+  double rightlastErr = targetDeg - rightVal;
+
+  double leftErr = 0;
+  double rightErr = 0;
+
+  double leftPower = 0;
+  double rightPower = 0;
+
+  double leftInt = leftErr;
+  double rightInt = rightErr;
+
+  double leftDeriv = leftlastErr - leftErr;
+  double rightDeriv = rightlastErr - rightErr;
+
+  double leftKp = 1;
+  double leftKi = 1;
+  double leftKd = 1;
+
+  double rightKp = 1;
+  double rightKi = 1;
+  double rightKd = 1;
+
+  int dT = 10;
+  while (true) {
+    leftVal = LeftFront.position(degrees);
+    rightVal = RightFront.position(degrees);
+
+    leftErr = targetDeg - leftVal;
+    rightErr = targetDeg - rightVal;
+
+    if (fabs(leftErr) < 5 && fabs(rightErr) < 5) {
+      break;
+    }
+
+    leftInt += (leftErr/dT);
+    rightInt +=  (rightErr/dT);
+
+    leftDeriv = leftErr - leftlastErr;
+    rightDeriv = rightErr - rightlastErr;
+
+    leftPower = (leftErr * leftKp) + (leftInt * leftKi) - (leftDeriv * leftKd);
+    rightPower = (rightErr * rightKp) + (rightInt * rightKi) - (rightDeriv * rightKd);
+
+    LeftFront.spin(forward, leftPower, pct);
+    LeftBack.spin(forward, leftPower, pct);
+    RightFront.spin(forward, rightPower, pct);
+    RightBack.spin(forward, rightPower, pct);
+
+    leftlastErr = leftErr;
+    rightlastErr = rightErr;
+  }
+  LeftFront.stop();
+  RightFront.stop();
+  LeftBack.stop();
+  RightBack.stop();
 }
 
 
+void AutoCode(){
+  //DriveForward is in inches
+  //Turn is in Degrees
+  
+}
 
 
 int main() {
@@ -54,6 +152,6 @@ int main() {
   this_thread::sleep_for(1000);
 
   //Code After Here  
-  DoThis();
+  
 
 }
