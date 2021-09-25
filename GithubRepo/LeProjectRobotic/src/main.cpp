@@ -58,9 +58,9 @@ void DriveTurn(int degs){
 
     while(abs(degs) > fabs(Angle) - 5)
     {
-      LeftBack.spin(vex::directionType::rev, Power, pct);
+      LeftBack.spin(reverse, Power, pct);
       RightBack.spin(fwd, Power, pct);
-      LeftFront.spin(vex::directionType::rev, Power, pct);
+      LeftFront.spin(reverse, Power, pct);
       RightFront.spin(fwd, Power, pct);
     }
     LeftBack.stop();
