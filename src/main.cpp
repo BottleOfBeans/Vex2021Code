@@ -1,7 +1,7 @@
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
-/*    Author:       C:\Users\Student                                          */
+/*    Author:       joe                                                       */
 /*    Created:      Sat Sep 18 2021                                           */
 /*    Description:  V5 project                                                */
 /*                                                                            */
