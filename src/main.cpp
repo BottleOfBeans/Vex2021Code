@@ -10,7 +10,7 @@
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
-// LeftFrontBack             motor         11              
+// LeftFrontBack        motor         11              
 // LeftFront            motor         4               
 // RightBack            motor         20              
 // RightFront           motor         10              
@@ -23,23 +23,27 @@
 using namespace vex;
 void DriverCode(){
     while(true){
-        
-        int lM = Controller1.Axis3.position(percent) + Controller1.Axis4.position(percent);
-        int rM = Controller1.Axis3.position(percent) - Controller1.Axis4.position(percent);
 
-        if ( (lM)>100)lM = 100;
-        if ( (lM)<-100)lM = -100;
-        
-        if ( (rM)>100)rM = 100;
-        if ( (rM)<-100)rM = -100;
-        
-        LeftBack.spin(fwd, lM,  pct);
-        RightBack.spin(fwd, rM,  pct);
-        LeftFront.spin(fwd, lM,  pct);
-        RightFront.spin(fwd, rM,  pct);
-    
-      }
+      int leftWheelSplit = Controller1.Axis3.position(percent) + Controller1.Axis1.position(percent);
+      int rightWheelSplit = Controller1.Axis3.position(percent) - Controller1.Axis1.position(percent);
+      
+      // bool L1_Press = Controller1.ButtonL1.pressing();
+      // bool L2_Press = Controller1.ButtonL2.pressing();
+
+      // bool R1_Press = Controller1.ButtonR1.pressing();
+      // bool R2_Press = Controller1.ButtonR2.pressing();
+      
+      LeftFront.spin(forward, leftWheelSplit, pct);
+      RightFront.spin(forward, rightWheelSplit, pct);
+      
+      LeftBack.spin(forward, leftWheelSplit, pct);
+      RightBack.spin(forward, rightWheelSplit, pct);
+
     }
+  }
+      
+        
+      
 void DriveTurn(int degs){
   Inertial.setRotation(0, degrees);
   double kP = 1.1;
