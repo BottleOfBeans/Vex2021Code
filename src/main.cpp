@@ -23,16 +23,14 @@
 using namespace vex;
 
 
+
 void DriverCode(){
     while(true){
 
-      int leftWheelSplit =  Controller1.Axis1.position(percent) - Controller1.Axis3.position(percent);
-      int rightWheelSplit = (Controller1.Axis1.position(percent)) + Controller1.Axis3.position(percent);
+      int leftWheelSplit =  Controller1.Axis3.position(percent) + Controller1.Axis1.position(percent);
+      int rightWheelSplit = (Controller1.Axis3.position(percent)) - Controller1.Axis1.position(percent);
       
       
-
-      // bool R1_Press = Controller1.ButtonR1.pressing();
-      // bool R2_Press = Controller1.ButtonR2.pressing();
 
       if (Controller1.ButtonL1.pressing() == true){    //This is your brain
         LeftLift.spin(forward, 100, pct);
@@ -42,17 +40,39 @@ void DriverCode(){
         LeftLift.spin(reverse, 100, pct);
         RightLift.spin(reverse, 100, pct); 
       }else{ //This is your brain on drugs
-        LeftLift.stop();
-        RightLift.stop();
+        LeftLift.stop(brake);
+        RightLift.stop(brake);
       }
 
       if (Controller1.ButtonX.pressing() == true){ //This is your brain
-        Grabby.spinFor(forward, 45, degrees);
+        Grabby.spin(reverse, 100, pct);
       }
-      else if(Controller1.ButtonY.pressing() == true){    
-        Grabby.spinFor(reverse, 45, degrees); 
+      else if(Controller1.ButtonB.pressing() == true){    
+        Grabby.spin(forward, 100, pct);
       }else{ //This is your brain on drugs
-        Grabby.stop();
+        Grabby.stop(hold);
+      }
+
+      if (Controller1.ButtonL1.pressing() == true){    //This is your brain
+        LeftLift.spin(forward, 100, pct);
+        RightLift.spin(forward, 100, pct);
+      }
+      else if(Controller1.ButtonL2.pressing() == true){    
+        LeftLift.spin(reverse, 100, pct);
+        RightLift.spin(reverse, 100, pct); 
+      }else{ //This is your brain on drugs
+        LeftLift.stop(hold);
+        RightLift.stop(hold);
+      }
+
+      if (Controller1.ButtonR1.pressing() == true){    //This is your brain
+        Convy.spin(forward, 73, pct);
+        
+      }
+      else if(Controller1.ButtonR2.pressing() == true){    
+        Convy.spin(reverse, 50, pct); 
+      }else{ //This is your brain on drugs
+        Convy.stop();
       }
    
 
