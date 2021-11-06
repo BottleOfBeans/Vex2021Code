@@ -47,6 +47,7 @@ void DriverCode(){
       else if(Controller1.ButtonL2.pressing() == true){    
         LeftLift.spin(reverse, 100, pct);
         RightLift.spin(reverse, 100, pct); 
+      
       }else{ //This is your Lift on drugs
         LeftLift.stop(hold);
         RightLift.stop(hold);
