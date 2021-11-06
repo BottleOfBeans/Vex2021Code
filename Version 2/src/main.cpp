@@ -31,38 +31,38 @@ void DriverCode(){
       
       
 
-      if (Controller1.ButtonR1.pressing() == true){ //This is your brain
+      if (Controller1.ButtonR1.pressing() == true){ //This is your Conveyor Belt
         Convy.spin(forward, 100, pct);
       }
       else if(Controller1.ButtonR2.pressing() == true){    
         Convy.spin(reverse, 100, pct); 
-      }else{ //This is your brain on drugs
+      }else{ //This is your Conveyor Belt on drugs
         Convy.stop(hold);
       }
 
-      if (Controller1.ButtonL1.pressing() == true){    //This is your brain
+      if (Controller1.ButtonL1.pressing() == true){ //This is your Lift
         LeftLift.spin(forward, 100, pct);
         RightLift.spin(forward, 100, pct);
       }
       else if(Controller1.ButtonL2.pressing() == true){    
         LeftLift.spin(reverse, 100, pct);
         RightLift.spin(reverse, 100, pct); 
-      }else{ //This is your brain on drugs
+      }else{ //This is your Lift on drugs
         LeftLift.stop(hold);
         RightLift.stop(hold);
       }
 
-      if (Controller1.ButtonX.pressing() == true){ //This is your brain
+      if (Controller1.ButtonX.pressing() == true){ //This is your Grabby
         Grabby.spin(forward, 100, pct);
       }
       else if (Controller1.ButtonB.pressing() == true){    
         Grabby.spin(reverse, 100, pct); 
-      }else{ //This is your brain on drugs
+      }else{ //This is your Grabby on drugs
         Grabby.stop(hold);
       }
    
-
-      LeftFront.spin(forward, leftWheelSplit, pct);
+      //Split Drive Move
+      LeftFront.spin(forward, leftWheelSplit, pct); 
       RightFront.spin(forward, rightWheelSplit, pct);
       
       LeftBack.spin(forward, leftWheelSplit, pct);
