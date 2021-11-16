@@ -3,11 +3,11 @@
 /*    Module:       main.cpp                                                  */
 /*    Author:       joe                                                       */
 /*    Created:      Sat Sep 18 2021                                           */
-/*    Description:  V5 project                                                */
+/*   Derivitiveescription:  V5 project                                                */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 
-// ---- START VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGUREDDerivitiveEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
 // LeftFrontBack        motor         11              
@@ -17,7 +17,7 @@
 // Inertial             inertial      7               
 // Lift                 motor_group   1, 2            
 // Controller1          controller                    
-// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- END VEXCODE CONFIGUREDDerivitiveEVICES ----
 
 #include "vex.h"
 using namespace vex;
@@ -62,7 +62,7 @@ void DriverCode(){
         Grabby.stop(hold);
       }
    
-      //Split Drive Move
+      //SplitDerivitiverive Move
       LeftFront.spin(forward, leftWheelSplit, pct); 
       RightFront.spin(forward, rightWheelSplit, pct);
       
@@ -72,112 +72,114 @@ void DriverCode(){
     }
   }
       
-        
-      
-void DriveTurn(int degs){
-  Inertial.setRotation(0, degrees);
-  double kP = 1.1;
-  
-  while(true) {
-    double Angle = Inertial.angle(deg);
-    double Power;
-    if(degs > 0)
-    {
-      Power = (degs - Angle) * kP;
-    }
-    else if (degs < 0)
-    {
-      Power = (degs + Angle) * kP;
-    }
+void Turnn(double angle)
+{
+  double kp = .4, kd = .0, ki = 0;
+  double Porportional=0, Integral=0,Derivitive = 0;
+  double lastError = angle - Inertial.rotation(deg);
+  int sign = 1;
+  while(true)
+  {
+    double currentAngle = Inertial.rotation(deg);
 
-    while(abs(degs) > fabs(Angle) - 5)
+    
+    double error = angle - currentAngle;  
+    Porportional = error * kp;
+    Integral += error * ki;
+    Derivitive = (error - lastError) * kd;  
+    lastError = error;
+
+    LeftFront.spin(fwd , Porportional+Integral+Derivitive , pct);
+    RightFront.spin(fwd, Porportional+Integral+Derivitive,  pct);
+    LeftBack.spin(fwd , Porportional+Integral+Derivitive , pct);
+    RightBack.spin(fwd, Porportional+Integral+Derivitive,  pct);
+
+    if(abs(Porportional +Integral+ Derivitive) < 1 && abs(Derivitive) < 1 && abs(Porportional) < 1)      
     {
-      LeftBack.spin(reverse, Power, pct);
-      RightBack.spin(fwd, Power, pct);
-      LeftFront.spin(reverse, Power, pct);
-      RightFront.spin(fwd, Power, pct);
+      LeftFront.stop(brakeType::brake);
+      RightFront.stop(brakeType::brake);
+      LeftBack.stop(brakeType::brake);
+      RightFront.stop(brakeType::brake);        
     }
-    LeftBack.stop();
-    RightBack.stop();
-    LeftFront.stop();
-    RightFront.stop();
-  }
+  }        
 }
 
-void DriveForward(double inches) {
-  LeftFront.resetPosition();
-  RightFront.resetPosition();
+int CheckDirection(double val){
 
-  double targetDeg = (inches*360)/(4*3.1415); //4 inch wheel??
+  if(val > 0){
+    return 1;}
+  else{
+  return -1;}
 
-  double leftVal = LeftFront.position(degrees);
-  double rightVal = RightFront.position(degrees);
+}
 
-  double leftlastErr = targetDeg - leftVal;
-  double rightlastErr = targetDeg - rightVal;
 
-  double leftErr = 0;
-  double rightErr = 0;
+void drive(int direction, double inches, double heading, double completeTime = 5000, double maxSpeed = 100) // direction: 0 forward, -1 backward, 2 strafe left, -2 strafe right
+{
+  double target = inches / (3.1415 * 4);
 
-  double leftPower = 0;
-  double rightPower = 0;
+  target *= 360*2;
+  LeftFront.resetRotation();
+  double kp = .37, ki = 0, kd = .3;
+  
+  double P = 0, I = 0, D = 0;
+  double error, lastError = 0;
+  double motorSpeed = 0;
+  
+  Brain.Timer.clear();
+  while(true)
+  {
+    
+      error = -LeftFront.rotation(rotationUnits::deg) + target;
+ 
+    P = kp * error;
+    if(fabs(error) < 50)
+    {
+      I += ki * error;
 
-  double leftInt = leftErr;
-  double rightInt = rightErr;
+    }
+    D = kd * (error - lastError);
+    lastError = error;
 
-  double leftDeriv = leftlastErr - leftErr;
-  double rightDeriv = rightlastErr - rightErr;
+    motorSpeed = P + I + D;
+    if(fabs(motorSpeed) > maxSpeed)
+    {
+      motorSpeed = CheckDirection(motorSpeed) * maxSpeed;
+    }
+    if(fabs(error) < .2 && fabs(lastError) < .2)
+      motorSpeed = 0;
 
-  double leftKp = 1;
-  double leftKi = 1;
-  double leftKd = 1;
-
-  double rightKp = 1;
-  double rightKi = 1;
-  double rightKd = 1;
-
-  int dT = 10;
-  while (true) {
-    leftVal = LeftFront.position(degrees);
-    rightVal = RightFront.position(degrees);
-
-    leftErr = targetDeg - leftVal;
-    rightErr = targetDeg - rightVal;
-
-    if (fabs(leftErr) < 5 && fabs(rightErr) < 5) {
-      break;
+        
+    double anglePower = 0;
+    if(fabs(motorSpeed) > 1)
+    {
+       anglePower = 0;
     }
 
-    leftInt += (leftErr/dT);
-    rightInt +=  (rightErr/dT);
-
-    leftDeriv = leftErr - leftlastErr;
-    rightDeriv = rightErr - rightlastErr;
-
-    leftPower = (leftErr * leftKp) + (leftInt * leftKi) - (leftDeriv * leftKd);
-    rightPower = (rightErr * rightKp) + (rightInt * rightKi) - (rightDeriv * rightKd);
-
-    LeftFront.spin(forward, leftPower, pct);
-    LeftBack.spin(forward, leftPower, pct);
-    RightFront.spin(forward, rightPower, pct);
-    RightBack.spin(forward, rightPower, pct);
-
-    leftlastErr = leftErr;
-    rightlastErr = rightErr;
+    LeftFront.spin(directionType::fwd, motorSpeed , percentUnits::pct);
+    LeftBack.spin(directionType::fwd, motorSpeed , percentUnits::pct);   
+    RightFront.spin(directionType::fwd, motorSpeed+anglePower, percentUnits::pct);
+    RightBack.spin(directionType::fwd, motorSpeed+anglePower, percentUnits::pct);
+    
+    if(fabs(motorSpeed) < 1)
+      break;
+    task::sleep(20);
   }
-  LeftFront.stop();
-  RightFront.stop();
-  LeftBack.stop();
-  RightBack.stop();
+  LeftBack.stop(brakeType::hold);
+  LeftFront.stop(brakeType::hold);
+  RightFront.stop(brakeType::hold);
+  RightBack.stop(brakeType::hold);  
+
 }
 
 
 void AutoCode(){
   //DriveForward() is in inches
-  //DriveTurn is in Degrees
-  DriveForward(4);
-  DriveTurn(30);
-
+  //DriveTurn is inDerivitiveegrees
+  
+  Drive(30)
+  Turnn(15.31)
+  fwd(43.5459)  
 }
 
 
@@ -188,6 +190,5 @@ int main() {
   this_thread::sleep_for(1000);
 
   //Code After Here  
-  DriverCode();
-
+ 
 }
