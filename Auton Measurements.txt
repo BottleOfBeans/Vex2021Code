@@ -1,0 +1,31 @@
+Robot is 16 inches long.
+Robot is 16 inches wide.
+
+72 Inches from the wall to the first Yellow (Beggining of second white line)
+11.5 Inches moving right to get to the yellow.
+
+
+Calculate Direct Distance :
+72^2+11.5^2 = 5316.25 
+Root(5316.25) = 72.7126 --> If we crash into the MOGO
+
+
+[Direct Path way only possible accurately when past the mogo.]
+
+Mogo is 14 inches.
+Need to go full 30 Inches till Cleared
+
+Calculate New Direct Distance:
+(72-30)^2 + 11.5^2 = 1896.25
+Root(1896.25) = 43.5459
+
+
+Angle you need to turn:
+Tan^(-1)(11.5/42) = 15.31*
+
+
+Psudeo Code:
+
+fwd(30)
+right(15.31)
+fwd(43.5459)
