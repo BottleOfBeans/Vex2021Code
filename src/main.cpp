@@ -114,7 +114,7 @@ int CheckDirection(double val){
 }
 
 
-void drive(int direction, double inches, double heading, double completeTime = 5000, double maxSpeed = 100) // direction: 0 forward, -1 backward, 2 strafe left, -2 strafe right
+void drive(double inches,double completeTime = 5000, double maxSpeed = 100) // direction: 0 forward, -1 backward, 2 strafe left, -2 strafe right
 {
   double target = inches / (3.1415 * 4);
 
@@ -177,9 +177,9 @@ void AutoCode(){
   //DriveForward() is in inches
   //DriveTurn is inDerivitiveegrees
   
-  Drive(30)
-  Turnn(15.31)
-  fwd(43.5459)  
+  drive(30);
+  Turnn(15.31);
+  drive(43.5459); 
 }
 
 

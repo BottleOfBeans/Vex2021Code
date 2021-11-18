@@ -15,7 +15,7 @@ extern motor RightFront;
 extern motor Convy;
 
 /**
- * Used to initialize code/tasks/devices added using tools in VEXcode Text.
+ * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
  * 
  * This should be called at the start of your int main function.
  */
