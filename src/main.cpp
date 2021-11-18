@@ -155,7 +155,7 @@ void drive(double inches,double completeTime = 5000, double maxSpeed = 100) // d
     {
        anglePower = 0;
     }
-
+    
     LeftFront.spin(directionType::fwd, motorSpeed , percentUnits::pct);
     LeftBack.spin(directionType::fwd, motorSpeed , percentUnits::pct);   
     RightFront.spin(directionType::fwd, motorSpeed+anglePower, percentUnits::pct);
@@ -190,5 +190,5 @@ int main() {
   this_thread::sleep_for(1000);
 
   //Code After Here  
- 
+  AutoCode();
 }
