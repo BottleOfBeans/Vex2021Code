@@ -21,6 +21,20 @@
 // Grabby               motor         1               
 // LeftFront            motor         16              
 // LeftLift             motor         10              
+// RightLift            motor         20              
+// Inertial             inertial      7               
+// RightFront           motor         19              
+// Convy                motor         13              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         17              
+// LeftBack             motor         2               
+// Grabby               motor         1               
+// LeftFront            motor         16              
+// LeftLift             motor         10              
 // RightLift            motor         15              
 // Inertial             inertial      7               
 // RightFront           motor         19              
@@ -327,22 +341,23 @@ void drive(double inches,double completeTime = 5000, double maxSpeed = 100) // d
 }
 
 
-void AutoCode(){
-  //DriveForward() is in inches
-  //DriveTurn is inDerivitiveegrees
+// void AutoCode(){
+//   //DriveForward() is in inches
+//   //DriveTurn is inDerivitiveegrees
   
-  drive(30);
-  Turnn(15.31);
-  drive(43.5459); 
-}
+//   drive(30);
+//   Turnn(15.31);
+//   drive(43.5459); 
+// }
 
 
 int main() {
-  // Initial`();
-  Inertial.calibrate();
-  Inertial.setRotation(0, degrees);
-  this_thread::sleep_for(1000);
+  DriverCode();
+//   // Initial`();
+//   Inertial.calibrate();
+//   Inertial.setRotation(0, degrees);
+//   this_thread::sleep_for(1000);
 
-  //Code After Here  
-  AutoCode();
+//   //Code After Here  
+//   AutoCode();
 }
