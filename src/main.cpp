@@ -30,38 +30,9 @@ using namespace vex;
 competition Competition;
 
 // define your global instances of motors and other devices here
-void turn(int degs){
-  Inertial7.setRotation(0, degrees);
-  double kP = 1.1;
-  
-  while(true) {
-    double Angle = Inertial7.angle(deg);
-    double Power;
-    if(degs > 0)
-    {
-      Power = (degs - Angle) * kP;
-    }
-    else if (degs < 0)
-    {
-      Power = (degs + Angle) * kP;
-    }
-
-    while(abs(degs) > fabs(Angle) - 5)
-    {
-      LeftBack.spin(fwd, Power, pct);
-      RightBack.spin(reverse, Power, pct);
-      LeftFront.spin(fwd, Power, pct);
-      RightFront.spin(reverse, Power, pct);
-    }    
-    LeftBack.stop();
-    RightBack.stop();
-    LeftFront.stop();
-    RightFront.stop();
-  }
-}
 void turn(double angle)
 {
-  double kp = .4, kd = .0, ki = 0;
+  double kp = 1, kd = .0, ki = 0;
   double Porportional=0, Integral=0,Derivitive = 0;
   double lastError = angle - Inertial7.rotation(deg);
   //int sign = 1;
@@ -81,12 +52,13 @@ void turn(double angle)
     LeftBack.spin(fwd , Porportional+Integral+Derivitive , pct);
     RightBack.spin(reverse, Porportional+Integral+Derivitive,  pct);
 
-    if(abs(Porportional +Integral+ Derivitive) < 1 && abs(Derivitive) < 1 && abs(Porportional) < 1)      
+    if(abs(Porportional +Integral+ Derivitive) < 0.5 && abs(Derivitive) < 0.5 && abs(Porportional) < 0.5)      
     {
-      LeftFront.stop(brake);
-      RightFront.stop(brake);
-      LeftBack.stop(brake);
-      RightFront.stop(brake);        
+      LeftFront.stop(brakeType::brake);
+      RightFront.stop(brakeType::brake);
+      LeftBack.stop(brakeType::brake);
+      RightFront.stop(brakeType::brake);
+      break;        
     }
   }        
 }
@@ -166,10 +138,10 @@ void drive(double inches,double completeTime = 5000, double maxSpeed = 100) // d
 void grabby(int updown)
 {
   Grabby.setVelocity(100,pct);
-  if(updown=1){
+  if(updown == 1){
     Grabby.spinToPosition(-610,degrees);
-  }else if(updown=2){
-    Grabby.spinToPosition(-235,degrees);
+  }else if(updown == 2){
+    Grabby.spinToPosition(-240,degrees);
   }else{
     Grabby.spinToPosition(0,degrees);
   }
@@ -210,9 +182,9 @@ void autonomous(void) {
   drive(28);
   drive(-20);
   grabby(1);
-  turn(-30);
+  turn(-35);
   drive(-6);
-  grabby(0);
+  grabby(2);
   drive(6);
 }
 
@@ -224,7 +196,7 @@ void autonomous(void) {
 /*  a VEX Competition.                                                       */
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
-/*---------------------------------------------------------------------------*/  
+/*---------------------------------------------------------------------------*/
 
 void usercontrol(void) {
   // User control code here, inside the loop
