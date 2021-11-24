@@ -30,6 +30,35 @@ using namespace vex;
 competition Competition;
 
 // define your global instances of motors and other devices here
+void turn(int degs){
+  Inertial7.setRotation(0, degrees);
+  double kP = 1.1;
+  
+  while(true) {
+    double Angle = Inertial7.angle(deg);
+    double Power;
+    if(degs > 0)
+    {
+      Power = (degs - Angle) * kP;
+    }
+    else if (degs < 0)
+    {
+      Power = (degs + Angle) * kP;
+    }
+
+    while(abs(degs) > fabs(Angle) - 5)
+    {
+      LeftBack.spin(fwd, Power, pct);
+      RightBack.spin(reverse, Power, pct);
+      LeftFront.spin(fwd, Power, pct);
+      RightFront.spin(reverse, Power, pct);
+    }    
+    LeftBack.stop();
+    RightBack.stop();
+    LeftFront.stop();
+    RightFront.stop();
+  }
+}
 void turn(double angle)
 {
   double kp = .4, kd = .0, ki = 0;
@@ -54,10 +83,10 @@ void turn(double angle)
 
     if(abs(Porportional +Integral+ Derivitive) < 1 && abs(Derivitive) < 1 && abs(Porportional) < 1)      
     {
-      LeftFront.stop(brakeType::brake);
-      RightFront.stop(brakeType::brake);
-      LeftBack.stop(brakeType::brake);
-      RightFront.stop(brakeType::brake);        
+      LeftFront.stop(brake);
+      RightFront.stop(brake);
+      LeftBack.stop(brake);
+      RightFront.stop(brake);        
     }
   }        
 }
@@ -138,7 +167,9 @@ void grabby(int updown)
 {
   Grabby.setVelocity(100,pct);
   if(updown=1){
-    Grabby.spinToPosition(-800,degrees);
+    Grabby.spinToPosition(-610,degrees);
+  }else if(updown=2){
+    Grabby.spinToPosition(-235,degrees);
   }else{
     Grabby.spinToPosition(0,degrees);
   }
@@ -193,7 +224,7 @@ void autonomous(void) {
 /*  a VEX Competition.                                                       */
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
-/*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/  
 
 void usercontrol(void) {
   // User control code here, inside the loop
