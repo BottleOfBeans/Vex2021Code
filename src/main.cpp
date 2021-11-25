@@ -75,7 +75,6 @@ int CheckDirection(double val){
 
 }
 
-
 void drive(double inches,double completeTime = 5000, double maxSpeed = 100) // direction: 0 forward, -1 backward, 2 strafe left, -2 strafe right
 {
   double target = inches / (3.1415 * 4);
@@ -135,6 +134,77 @@ void drive(double inches,double completeTime = 5000, double maxSpeed = 100) // d
   RightBack.stop(brakeType::hold);  
 
 }
+void drivestartout(double inches,double completeTime = 5000, double maxSpeed = 100) // direction: 0 forward, -1 backward, 2 strafe left, -2 strafe right
+{
+  int gogogo = 0;
+  double target = inches / (3.1415 * 4);
+
+  target *= 360*2;
+  LeftFront.resetRotation();
+  double kp = .37, ki = 0, kd = .3;
+  
+  double P = 0, I = 0, D = 0;
+  double error, lastError = 0;
+  double motorSpeed = 0;
+  
+  Brain.Timer.clear();
+  while(true)
+  {
+    
+    error = -LeftFront.rotation(rotationUnits::deg) + target;
+
+    P = kp * error;
+    if(fabs(error) < 50)
+    {
+      I += ki * error;
+
+    }
+    D = kd * (error - lastError);
+    lastError = error;
+
+    motorSpeed = P + I + D;
+    if(fabs(motorSpeed) > maxSpeed)
+    {
+      motorSpeed = CheckDirection(motorSpeed) * maxSpeed;
+    }
+    if(fabs(error) < .2 && fabs(lastError) < .2){
+      motorSpeed = 0;
+    }
+        
+    double anglePower = 0;
+    if(fabs(motorSpeed) > 1)
+    {
+      anglePower = 0;
+    }
+    
+    LeftFront.spin(directionType::fwd, motorSpeed , percentUnits::pct);
+    LeftBack.spin(directionType::fwd, motorSpeed , percentUnits::pct);   
+    RightFront.spin(directionType::fwd, motorSpeed+anglePower, percentUnits::pct);
+    RightBack.spin(directionType::fwd, motorSpeed+anglePower, percentUnits::pct);
+    
+    if(fabs(motorSpeed) < 1)
+    {
+      break;
+    }
+    
+    if(gogogo <= 5){
+      LeftLift.setVelocity(100,pct);
+      RightLift.setVelocity(100,pct);
+      LeftLift.spinToPosition(100,degrees);
+      RightLift.spinToPosition(100,degrees);
+    }else if(gogogo <= 20){
+      LeftLift.spinToPosition(0,degrees);
+      RightLift.spinToPosition(0,degrees);
+    }
+    gogogo++;
+    task::sleep(20);
+  }
+  LeftBack.stop(brakeType::hold);
+  LeftFront.stop(brakeType::hold);
+  RightFront.stop(brakeType::hold);
+  RightBack.stop(brakeType::hold);  
+
+}
 void grabby(int updown)
 {
   Grabby.setVelocity(100,pct);
@@ -145,6 +215,16 @@ void grabby(int updown)
   }else{
     Grabby.spinToPosition(0,degrees);
   }
+}
+void deployconvy(int dir, double t){
+  t = t*100;
+  if(dir == 1){
+    Convy.spin(forward,100,pct);
+  }else if(dir == 2){
+    Convy.spin(reverse,100,pct);
+  }
+  this_thread::sleep_for(t);
+  Convy.stop();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -179,13 +259,16 @@ void pre_auton(void) {
 /*---------------------------------------------------------------------------*/
 
 void autonomous(void) {
-  drive(28);
-  drive(-20);
+  drivestartout(28);
+  drive(-10);
+  turn(20);
+  drive(-10);
   grabby(1);
-  turn(-35);
-  drive(-6);
+  turn(-28);
+  drive(-12);
   grabby(2);
-  drive(6);
+  drive(10);
+  deployconvy(1,5);
 }
 
 /*---------------------------------------------------------------------------*/
