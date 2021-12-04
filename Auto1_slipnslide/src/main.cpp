@@ -74,7 +74,7 @@ void turn(double angle)
     double speed;
     double prevangle = 3000;
     
-    while (error > 0.5 or error < -0.5){
+    while (error > 1 or error < -1){
       error = angle - Inertial7.rotation(degrees);
       integral = integral + (error/10);
       if (integral > 500){
@@ -373,7 +373,7 @@ void usercontrol(void) {
       LeftLift.stop(hold);
       RightLift.stop(hold);
     }
-
+  
     if (Controller1.ButtonX.pressing() == true){ //This is your Grabby
       Grabby.spin(forward, 100, pct);
     }
