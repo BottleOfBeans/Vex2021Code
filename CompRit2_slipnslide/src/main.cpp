@@ -60,35 +60,44 @@ competition Competition;
 // define your global instances of motors and other devices here
 void turn(double angle)
 {
-  double kp = 0.7, kd = 0.05, ki = 0;
-  double Porportional=0.7, Integral=0,Derivitive = 0;
-  double lastError = angle - Inertial7.rotation(deg);
-  //int sign = 1;
-  while(true)
-  {
-    double currentAngle = Inertial7.rotation(deg);
-
+  double times = 0;
+  while (times < 50){
+    double error = 500;
+    double kP = 0.7;
+    double kI = 0.01;
+    double kD = 0.4;
     
-    double error = angle - currentAngle;  
-    Porportional = error * kp;
-    Integral += error * ki;
-    Derivitive = (error - lastError) * kd;  
-    lastError = error;
-
-    LeftFront.spin(fwd , Porportional+Integral+Derivitive , pct);
-    RightFront.spin(reverse, Porportional+Integral+Derivitive,  pct);
-    LeftBack.spin(fwd , Porportional+Integral+Derivitive , pct);
-    RightBack.spin(reverse, Porportional+Integral+Derivitive,  pct);
-
-    if(abs(Porportional +Integral+ Derivitive) < 0.5 && abs(Derivitive) < 0.5 && abs(Porportional) < 0.5)      
-    {
-      LeftFront.stop(brakeType::brake);
-      RightFront.stop(brakeType::brake);
-      LeftBack.stop(brakeType::brake);
-      RightFront.stop(brakeType::brake);
-      break;        
+    double integral;
+    double derivative;
+    double prevError;
+    double power;
+    double speed;
+    double prevangle = 3000;
+    
+    while (error > 0.5 or error < -0.5){
+      error = angle - Inertial7.rotation(degrees);
+      integral = integral + (error/10);
+      if (integral > 500){
+        integral = 500;
+      }
+      derivative = error - prevError;
+      prevError = error;
+      power = (error * kP) + (integral * kI) + (derivative + kD);
+      
+      LeftFront.spin(fwd, power, pct);
+      RightFront.spin(reverse, power, pct);
+      LeftBack.spin(fwd, power, pct);
+      RightBack.spin(reverse, power, pct);
+      
+      wait(0.001, seconds);
     }
-  }        
+    LeftFront.stop(brake);
+    RightFront.stop(brake);
+    LeftBack.stop(brake);
+    RightBack.stop(brake);
+    wait(0.01,seconds);
+    times++;
+  }
 }
 
 int CheckDirection(double val){
@@ -253,12 +262,29 @@ void deployconvy(int dir, double t){
   wait(t,seconds);
   Convy.stop();
 }
-void lift(double angle, double t){
-  LeftLift.setVelocity(100,pct);
-  RightLift.setVelocity(100,pct);
-  while ((angle - 50 >((LeftLift.position(degrees) + RightLift.position(degrees)) / 2)) and (angle + 50 < ((LeftLift.position(degrees) + RightLift.position(degrees)) / 2))){
-  LeftLift.spinToPosition(angle,degrees);
-  RightLift.spinToPosition(angle,degrees);
+void lift(double angle){
+  double error = 500;
+  double kP = 1;
+  double kI = 0.1;
+  double kD = 0.1;
+  
+  double integral;
+  double derivative;
+  double prevError;
+  double power;
+  
+  while (error > 5 or error <-5){
+    error = angle - ((LeftLift.position(degrees) + RightLift.position(degrees)) / 2);
+    integral = integral + (error)/10;
+    if (integral > 2000){
+      integral = 2000;
+    }
+    derivative = error - prevError;
+    prevError = error;
+    power = (error * kP) + (integral * kI) + (derivative + kD);
+    
+    LeftLift.spin(fwd, power, pct);
+    RightLift.spin(fwd, power, pct);
   }
   LeftLift.stop(hold);
   RightLift.stop(hold);
@@ -300,10 +326,10 @@ void autonomous(void) {
   drive(-5);
   turn(30);
   drive(-13);
-  lift(30,3);
+  lift(100);
   turn(-90);
   grabby(1);
-  drive(-12);
+  drive(-11);
   grabby(2);
   turn(0);
   drive(10);
