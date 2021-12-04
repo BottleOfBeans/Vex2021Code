@@ -2462,27 +2462,27 @@ Linker script and memory map
  *(.text)
  *(.text.*)
  .text._Z4turnd
-                0x03800100      0x218 build/src/main.o
+                0x03800100      0x210 build/src/main.o
                 0x03800100                turn(double)
  .text._Z5driveddd
-                0x03800318      0x208 build/src/main.o
-                0x03800318                drive(double, double, double)
+                0x03800310      0x208 build/src/main.o
+                0x03800310                drive(double, double, double)
  .text._Z13drivestartoutddd
-                0x03800520      0x328 build/src/main.o
-                0x03800520                drivestartout(double, double, double)
+                0x03800518      0x328 build/src/main.o
+                0x03800518                drivestartout(double, double, double)
  .text._Z11deployconvyid
-                0x03800848       0x98 build/src/main.o
-                0x03800848                deployconvy(int, double)
+                0x03800840       0x98 build/src/main.o
+                0x03800840                deployconvy(int, double)
  .text._Z4liftd
-                0x038008e0      0x158 build/src/main.o
-                0x038008e0                lift(double)
+                0x038008d8      0x158 build/src/main.o
+                0x038008d8                lift(double)
  .text._Z9pre_autonv
-                0x03800a38       0x54 build/src/main.o
-                0x03800a38                pre_auton()
- *fill*         0x03800a8c        0x4 
+                0x03800a30       0x54 build/src/main.o
+                0x03800a30                pre_auton()
+ *fill*         0x03800a84        0x4 
  .text._Z10autonomousv
-                0x03800a90      0x1b0 build/src/main.o
-                0x03800a90                autonomous()
+                0x03800a88      0x1b8 build/src/main.o
+                0x03800a88                autonomous()
  .text._Z11usercontrolv
                 0x03800c40      0x330 build/src/main.o
                 0x03800c40                usercontrol()

@@ -61,11 +61,11 @@ competition Competition;
 void turn(double angle)
 {
   double times = 0;
-  while (times < 50){
+  while (times < 10){
     double error = 500;
-    double kP = 0.7;
-    double kI = 0.01;
-    double kD = 0.4;
+    double kP = 1;
+    double kI = 0;
+    double kD = 0.3;
     
     double integral;
     double derivative;
@@ -326,7 +326,7 @@ void autonomous(void) {
   drive(-5);
   turn(30);
   drive(-13);
-  lift(100);
+  lift(200);
   turn(-90);
   grabby(1);
   drive(-11);
