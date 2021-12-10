@@ -32,7 +32,7 @@ competition Competition;
 // define your global instances of motors and other devices here
 void turn(double angle)
 {
-  double kp = 1, kd = .0, ki = 0;
+  double kp = 0.7, kd = .1, ki = 0;
   double Porportional=0, Integral=0,Derivitive = 0;
   double lastError = angle - Inertial7.rotation(deg);
   //int sign = 1;
@@ -81,6 +81,7 @@ void drive(double inches,double completeTime = 5000, double maxSpeed = 100) // d
 
   target *= 360*2;
   LeftFront.resetRotation();
+  RightBack.resetRotation();
   double kp = .37, ki = 0, kd = .3;
   
   double P = 0, I = 0, D = 0;
@@ -91,7 +92,7 @@ void drive(double inches,double completeTime = 5000, double maxSpeed = 100) // d
   while(true)
   {
     
-    error = -LeftFront.rotation(rotationUnits::deg) + target;
+    error = -(LeftFront.rotation(rotationUnits::deg) + LeftFront.rotation(rotationUnits::deg))/2 + target;
 
     P = kp * error;
     if(fabs(error) < 50)
@@ -263,7 +264,7 @@ void autonomous(void) {
   turn(20);
   drive(-10);
   grabby(1);
-  turn(-32);
+  turn(-36);
   drive(-12);
   grabby(2);
   drive(10);

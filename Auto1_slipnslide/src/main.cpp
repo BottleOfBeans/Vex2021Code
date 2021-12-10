@@ -63,9 +63,9 @@ void turn(double angle)
   double times = 0;
   while (times < 10){
     double error = 500;
-    double kP = 1;
+    double kP = 0.7;
     double kI = 0;
-    double kD = 0.3;
+    double kD = 0.1;
     
     double integral;
     double derivative;
@@ -118,6 +118,7 @@ void drive(double inches,double completeTime = 5000, double maxSpeed = 100) // d
 
   target *= 360*2;
   LeftFront.resetRotation();
+  RightBack.resetRotation();
   double kp = .37, ki = 0, kd = .3;
   
   double P = 0, I = 0, D = 0;
@@ -128,7 +129,7 @@ void drive(double inches,double completeTime = 5000, double maxSpeed = 100) // d
   while(true)
   {
     
-    error = -LeftFront.rotation(rotationUnits::deg) + target;
+    error = -(LeftFront.rotation(deg) + RightBack.rotation(deg))/2 + target;
 
     P = kp * error;
     if(fabs(error) < 50)

@@ -60,6 +60,38 @@ competition Competition;
 // define your global instances of motors and other devices here
 void turn(double angle)
 {
+  double kp = 0.7, kd = .1, ki = 0;
+  double Porportional=0, Integral=0,Derivitive = 0;
+  double lastError = angle - Inertial7.rotation(deg);
+  //int sign = 1;
+  while(true)
+  {
+    double currentAngle = Inertial7.rotation(deg);
+
+    
+    double error = angle - currentAngle;  
+    Porportional = error * kp;
+    Integral += error * ki;
+    Derivitive = (error - lastError) * kd;  
+    lastError = error;
+
+    LeftFront.spin(fwd , Porportional+Integral+Derivitive , pct);
+    RightFront.spin(reverse, Porportional+Integral+Derivitive,  pct);
+    LeftBack.spin(fwd , Porportional+Integral+Derivitive , pct);
+    RightBack.spin(reverse, Porportional+Integral+Derivitive,  pct);
+
+    if(abs(Porportional +Integral+ Derivitive) < 0.5 && abs(Derivitive) < 0.5 && abs(Porportional) < 0.5)      
+    {
+      LeftFront.stop(brakeType::brake);
+      RightFront.stop(brakeType::brake);
+      LeftBack.stop(brakeType::brake);
+      RightFront.stop(brakeType::brake);
+      break;        
+    }
+  }        
+}
+/*void turn(double angle)
+{
   double times = 0;
   while (times < 50){
     double error = 500;
@@ -99,7 +131,7 @@ void turn(double angle)
     times++;
   }
 }
-
+*/
 int CheckDirection(double val){
 
   if(val > 0){
@@ -327,7 +359,7 @@ void autonomous(void) {
   turn(30);
   drive(-13);
   lift(100);
-  turn(-90);
+  turn(-85);
   grabby(1);
   drive(-11);
   grabby(2);
