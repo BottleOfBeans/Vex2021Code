@@ -75,11 +75,10 @@ competition Competition;
 void turn(double angle)
 {
   double times = 0;
-  while (times < 10){
     double error = 500;
-    double kP = 0.7;
+    double kP = 0.8;
     double kI = 0;
-    double kD = 0.1;
+    double kD = 0.8;
     
     double integral;
     double derivative;
@@ -112,7 +111,6 @@ void turn(double angle)
     wait(0.01,seconds);
     times++;
   }
-}
 
 int CheckDirection(double val){
 
@@ -233,9 +231,13 @@ void drivestartout(double inches,double completeTime = 5000, double maxSpeed = 1
     LeftBack.spin(directionType::fwd, motorSpeed , percentUnits::pct);   
     RightFront.spin(directionType::fwd, motorSpeed+anglePower, percentUnits::pct);
     RightBack.spin(directionType::fwd, motorSpeed+anglePower, percentUnits::pct);
-    
+    if(error < 300){
+      LiftGrabby.setVelocity(100,percent);
+      LiftGrabby.spin(fwd);
+    }
     if(fabs(motorSpeed) < 1)
     {
+      LiftGrabby.stop(hold);
       break;
     }
     
@@ -246,6 +248,68 @@ void drivestartout(double inches,double completeTime = 5000, double maxSpeed = 1
       LeftLift.spinToPosition(0,degrees);
     }
     gogogo++;
+    task::sleep(20);
+  }
+  LeftBack.stop(brakeType::hold);
+  LeftFront.stop(brakeType::hold);
+  RightFront.stop(brakeType::hold);
+  RightBack.stop(brakeType::hold);  
+
+}
+void drivei(double inches,double completeTime = 5000, double maxSpeed = 100) // direction: 0 forward, -1 backward, 2 strafe left, -2 strafe right
+{
+  Convy.spin(fwd,100,pct);
+  double target = inches / (3.1415 * 4);
+
+  target *= 360*2;
+  LeftFront.resetRotation();
+  RightBack.resetRotation();
+  double kp = .37, ki = 0, kd = .3;
+  
+  double P = 0, I = 0, D = 0;
+  double error, lastError = 0;
+  double motorSpeed = 0;
+  
+  Brain.Timer.clear();
+  while(true)
+  {
+    
+    error = -(LeftFront.rotation(deg) + RightBack.rotation(deg))/2 + target;
+
+    P = kp * error;
+    if(fabs(error) < 50)
+    {
+      I += ki * error;
+
+    }
+    D = kd * (error - lastError);
+    lastError = error;
+
+    motorSpeed = P + I + D;
+    if(fabs(motorSpeed) > maxSpeed)
+    {
+      motorSpeed = CheckDirection(motorSpeed) * maxSpeed;
+    }
+    if(fabs(error) < .2 && fabs(lastError) < .2){
+      motorSpeed = 0;
+    }
+        
+    double anglePower = 0;
+    if(fabs(motorSpeed) > 1)
+    {
+      anglePower = 0;
+    }
+    
+    LeftFront.spin(directionType::fwd, motorSpeed , percentUnits::pct);
+    LeftBack.spin(directionType::fwd, motorSpeed , percentUnits::pct);   
+    RightFront.spin(directionType::fwd, motorSpeed+anglePower, percentUnits::pct);
+    RightBack.spin(directionType::fwd, motorSpeed+anglePower, percentUnits::pct);
+    
+    if(fabs(motorSpeed) < 1)
+    {
+      Convy.stop();
+      break;
+    }
     task::sleep(20);
   }
   LeftBack.stop(brakeType::hold);
@@ -276,7 +340,7 @@ void deployconvy(int dir, double t){
 }
 void lift(double angle){
   double error = 500;
-  double kP = 1;
+  double kP = 2;
   double kI = 0.1;
   double kD = 0.1;
   
@@ -293,13 +357,21 @@ void lift(double angle){
     }
     derivative = error - prevError;
     prevError = error;
-    power = (error * kP) + (integral * kI) + (derivative + kD);
+    power = error;//(error * kP) + (integral * kI) + (derivative + kD);
     
     LeftLift.spin(fwd, power, pct);
   }
   LeftLift.stop(hold);
 }
-
+void up(){
+  LiftGrabby.spinToPosition(0,degrees);
+  LiftGrabby.stop(hold);
+}
+void down(){
+  LiftGrabby.setVelocity(100,percent);
+  LiftGrabby.spinToPosition(140,degrees);
+  LiftGrabby.stop(hold);
+}
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
 /*                                                                           */
@@ -332,18 +404,18 @@ void pre_auton(void) {
 /*---------------------------------------------------------------------------*/
 
 void autonomous(void) {
-  drivestartout(24);
+  drivestartout(22);
   drive(-5);
   turn(30);
   drive(-13);
-  lift(200);
-  turn(-90);
+  turn(-86);
+  lift(400);
   grabby(1);
-  drive(-11);
+  drive(-14);
   grabby(2);
-  turn(0);
-  drive(10);
-  deployconvy(1,5);
+  turn(-10);
+  drivei(15);
+  drive(-15);
 }
 
 /*---------------------------------------------------------------------------*/
