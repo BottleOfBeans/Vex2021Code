@@ -145,7 +145,6 @@ void drive(double inches,double completeTime = 5000, double maxSpeed = 100) // d
 }
 void drivestartout(double inches,double completeTime = 5000, double maxSpeed = 100) // direction: 0 forward, -1 backward, 2 strafe left, -2 strafe right
 {
-  int gogogo = 0;
   double target = inches / (3.1415 * 4);
 
   target *= 360*2;
@@ -199,14 +198,6 @@ void drivestartout(double inches,double completeTime = 5000, double maxSpeed = 1
       LiftGrabby.stop(hold);
       break;
     }
-    
-    if(gogogo <= 5){
-      LeftLift.setVelocity(100,pct);
-      LeftLift.spinToPosition(100,degrees);
-    }else if(gogogo <= 20){
-      LeftLift.spinToPosition(0,degrees);
-    }
-    gogogo++;
     task::sleep(20);
   }
   LeftBack.stop(brakeType::hold);
@@ -328,8 +319,14 @@ void up(){
 }
 void down(){
   LiftGrabby.setVelocity(100,percent);
-  LiftGrabby.spinToPosition(140,degrees);
+  LiftGrabby.spinToPosition(220,degrees);
   LiftGrabby.stop(hold);
+}
+void convyStart(){
+  Convy.spin(forward,100,pct);
+}
+void convyStop(){
+  Convy.stop();
 }
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
@@ -346,6 +343,7 @@ void pre_auton(void) {
   Inertial7.calibrate();
   Inertial7.setRotation(0, degrees);
   this_thread::sleep_for(1000);
+  Controller1.rumble(rumblePulse);
   vexcodeInit();
 
   // All activities that occur before the competition starts
@@ -366,15 +364,46 @@ void autonomous(void) {
   grabby(1);
   drive(-7);
   grabby(2);
-  turn(90,0);
+  convyStart();
+  turn(92,0);
   drivestartout(23);
-  lift(1400);
-  turn(130,0);
+  //first yellow
+  lift(1430);
+  turn(133,0);
   drive(25);
-  turn(90,-6);
+  turn(87,-6);
   drive(7);
   lift(1300);
   up();
+  //dropyellow
+  drive(-5);
+  turn(263,-1);
+  //turn for big yellow
+  grabby(1);
+  lift(0);
+  drivestartout(9);
+  down();
+  lift(1400);
+  drive(24);
+  lift(1250);
+  wait(1,seconds);
+  up();
+  //drop big yellow
+  
+  turn(360,-5);
+  drive(-24);
+  grabby(2);
+  lift(0);
+  turn(410,0);
+  drivestartout(16);
+  down();
+  lift(1400);
+  drive(24);
+  up();
+
+  //drop other small yellow
+  convyStop();
+
 }
 
 /*---------------------------------------------------------------------------*/
