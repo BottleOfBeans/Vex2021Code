@@ -362,22 +362,21 @@ void pre_auton(void) {
 
 void autonomous(void) {
   grabby(1);
-  drive(-7);
+  drive(-8);
   grabby(2);
   convyStart();
-  turn(92,0);
+  turn(93,0);
   drivestartout(23);
   //first yellow
   lift(1430);
-  turn(133,0);
-  drive(25);
-  turn(87,-6);
-  drive(7);
-  lift(1300);
+  turn(127,0);
+  drive(28);
+  turn(93,-6);
+  lift(1400);
   up();
   //dropyellow
   drive(-5);
-  turn(263,-1);
+  turn(270,-1);
   //turn for big yellow
   grabby(1);
   lift(0);
