@@ -31,6 +31,9 @@ competition Competition;
 // define your global instances of motors and other devices here
 void turn(double angle, double inc)
 {
+  if (angle > 360){
+    angle = angle-360;
+  }
   double times = 0;
     double error = 500;
     double kP = 0.4;
@@ -143,7 +146,67 @@ void drive(double inches,double completeTime = 5000, double maxSpeed = 100) // d
   RightBack.stop(brakeType::hold);  
 
 }
-void drivestartout(double inches,double completeTime = 5000, double maxSpeed = 100) // direction: 0 forward, -1 backward, 2 strafe left, -2 strafe right
+void drivecorrection(double inches,double correction, double completeTime = 5000, double maxSpeed = 100) // direction: 0 forward, -1 backward, 2 strafe left, -2 strafe right
+{
+  double target = inches / (3.1415 * 4);
+
+  target *= 360*2;
+  LeftFront.resetRotation();
+  RightBack.resetRotation();
+  double kp = .37, ki = 0, kd = .3;
+  
+  double P = 0, I = 0, D = 0;
+  double error, lastError = 0;
+  double motorSpeed = 0;
+  
+  Brain.Timer.clear();
+  while(true)
+  {
+    
+    error = -(LeftFront.rotation(deg) + RightBack.rotation(deg))/2 + target;
+
+    P = kp * error;
+    if(fabs(error) < 50)
+    {
+      I += ki * error;
+
+    }
+    D = kd * (error - lastError);
+    lastError = error;
+
+    motorSpeed = P + I + D;
+    if(fabs(motorSpeed) > maxSpeed)
+    {
+      motorSpeed = CheckDirection(motorSpeed) * maxSpeed;
+    }
+    if(fabs(error) < .2 && fabs(lastError) < .2){
+      motorSpeed = 0;
+    }
+        
+    double anglePower = 0;
+    if(fabs(motorSpeed) > 1)
+    {
+      anglePower = 0;
+    }
+    
+    LeftFront.spin(directionType::fwd, motorSpeed + correction, percentUnits::pct);
+    LeftBack.spin(directionType::fwd, motorSpeed + correction , percentUnits::pct);   
+    RightFront.spin(directionType::fwd, motorSpeed+anglePower - correction, percentUnits::pct);
+    RightBack.spin(directionType::fwd, motorSpeed+anglePower - correction, percentUnits::pct);
+    
+    if(fabs(motorSpeed) < 1)
+    {
+      break;
+    }
+    task::sleep(20);
+  }
+  LeftBack.stop(brakeType::hold);
+  LeftFront.stop(brakeType::hold);
+  RightFront.stop(brakeType::hold);
+  RightBack.stop(brakeType::hold);  
+
+}
+void drivestartout(double inches, double correction,double completeTime = 5000, double maxSpeed = 100) // direction: 0 forward, -1 backward, 2 strafe left, -2 strafe right
 {
   double target = inches / (3.1415 * 4);
 
@@ -187,8 +250,8 @@ void drivestartout(double inches,double completeTime = 5000, double maxSpeed = 1
     
     LeftFront.spin(directionType::fwd, motorSpeed , percentUnits::pct);
     LeftBack.spin(directionType::fwd, motorSpeed , percentUnits::pct);   
-    RightFront.spin(directionType::fwd, motorSpeed+anglePower, percentUnits::pct);
-    RightBack.spin(directionType::fwd, motorSpeed+anglePower, percentUnits::pct);
+    RightFront.spin(directionType::fwd, motorSpeed+anglePower - correction, percentUnits::pct);
+    RightBack.spin(directionType::fwd, motorSpeed+anglePower - correction, percentUnits::pct);
     if(error < 300){
       LiftGrabby.setVelocity(100,percent);
       LiftGrabby.spin(fwd);
@@ -199,6 +262,7 @@ void drivestartout(double inches,double completeTime = 5000, double maxSpeed = 1
       break;
     }
     task::sleep(20);
+    correction = 0;
   }
   LeftBack.stop(brakeType::hold);
   LeftFront.stop(brakeType::hold);
@@ -272,9 +336,9 @@ void grabby(int updown)
 {
   Grabby.setVelocity(100,pct);
   if(updown == 1){
-    Grabby.spinToPosition(-600,degrees);
+    Grabby.spinToPosition(-590,degrees);
   }else if(updown == 2){
-    Grabby.spinToPosition(-240,degrees);
+    Grabby.spinToPosition(-210,degrees);
   }else{
     Grabby.spinToPosition(0,degrees);
   }
@@ -365,22 +429,24 @@ void autonomous(void) {
   drive(-8);
   grabby(2);
   convyStart();
-  turn(93,0);
-  drivestartout(23);
+  drive(2);
+  turn(91,0);
+  drivestartout(23, 100);
   //first yellow
   lift(1430);
   turn(127,0);
-  drive(28);
+  drive(26);
   turn(93,-6);
+  drive(4);
   lift(1400);
   up();
   //dropyellow
-  drive(-5);
+  drive(-7);
   turn(270,-1);
   //turn for big yellow
   grabby(1);
   lift(0);
-  drivestartout(9);
+  drivestartout(9,0);
   down();
   lift(1400);
   drive(24);
@@ -389,12 +455,12 @@ void autonomous(void) {
   up();
   //drop big yellow
   
-  turn(360,-5);
+  turn(360,3);
   drive(-24);
   grabby(2);
   lift(0);
-  turn(410,0);
-  drivestartout(16);
+  turn(420,0);
+  drivestartout(16,0);
   down();
   lift(1400);
   drive(24);
