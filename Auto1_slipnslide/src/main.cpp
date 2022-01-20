@@ -431,24 +431,30 @@ void autonomous(void) {
   convyStart();
   drive(2);
   turn(91,0);
-  drivestartout(23, 100);
+  drive(5);
+  turn(90,-4);
+  drivestartout(21, 100);
   //first yellow
   lift(1430);
   turn(127,0);
   drive(26);
-  turn(93,-6);
+  turn(87,-6);
   drive(4);
   lift(1400);
   up();
   //dropyellow
+  turn(90,1);
   drive(-7);
-  turn(270,-1);
+  turn(255,-1);
   //turn for big yellow
+  Convy.spin(reverse);
   grabby(1);
+  Convy.spin(fwd);
   lift(0);
   drivestartout(9,0);
   down();
   lift(1400);
+  turn(270,0);
   drive(24);
   lift(1250);
   wait(1,seconds);
