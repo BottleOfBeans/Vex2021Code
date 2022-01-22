@@ -9,7 +9,7 @@ extern motor LeftBack;
 extern motor Grabby;
 extern motor LeftFront;
 extern motor LeftLift;
-extern motor RightLift;
+extern motor LiftGrabby;
 extern inertial Inertial7;
 extern motor RightFront;
 extern motor Convy;
