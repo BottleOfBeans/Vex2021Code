@@ -383,7 +383,8 @@ void up(){
 }
 void down(){
   LiftGrabby.setVelocity(100,percent);
-  LiftGrabby.spinToPosition(220,degrees);
+  LiftGrabby.spinToPosition(22
+  0,degrees);
   LiftGrabby.stop(hold);
 }
 void convyStart(){
