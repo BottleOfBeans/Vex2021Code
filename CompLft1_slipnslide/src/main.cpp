@@ -123,6 +123,8 @@ void drive(double inches,double completeTime = 5000, double maxSpeed = 100) // d
   target *= 360*2;
   LeftFront.resetRotation();
   RightBack.resetRotation();
+  RightFront.resetRotation();
+  LeftBack.resetRotation();
   double kp = .37, ki = 0, kd = .3;
   
   double P = 0, I = 0, D = 0;
@@ -133,7 +135,7 @@ void drive(double inches,double completeTime = 5000, double maxSpeed = 100) // d
   while(true)
   {
     
-    error = -(LeftFront.rotation(rotationUnits::deg) + LeftFront.rotation(rotationUnits::deg))/2 + target;
+    error = -(LeftFront.rotation(rotationUnits::deg) + RightBack.rotation(rotationUnits::deg) + RightFront.rotation(deg) + LeftBack.rotation(deg))/4 + target;
 
     P = kp * error;
     if(fabs(error) < 50)
@@ -309,11 +311,11 @@ void pre_auton(void) {
 void autonomous(void) {
   drivestartout(24,0);
   drive(-5);
-  turn(20,0);
+  turn(20,1);
   drive(-10);
   grabby(1);
-  turn(-36,0);
-  drive(-12);
+  turn(-41,-6);
+  drive(-11);
   grabby(2);
   drive(10);
   deployconvy(1,5);

@@ -7,6 +7,20 @@
 // Grabby               motor         1               
 // LeftFront            motor         16              
 // LeftLift             motor         10              
+// LiftGrabby           motor         20              
+// Inertial7            inertial      7               
+// RightFront           motor         19              
+// Convy                motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         17              
+// LeftBack             motor         2               
+// Grabby               motor         1               
+// LeftFront            motor         16              
+// LeftLift             motor         10              
 // RightLift            motor         20              
 // Inertial7            inertial      7               
 // RightFront           motor         19              
@@ -203,9 +217,8 @@ void drive(double inches,double completeTime = 5000, double maxSpeed = 100) // d
   RightBack.stop(brakeType::hold);  
 
 }
-void drivestartout(double inches,double completeTime = 5000, double maxSpeed = 100) // direction: 0 forward, -1 backward, 2 strafe left, -2 strafe right
+void drivestartout(double inches, double correction,double completeTime = 5000, double maxSpeed = 100) // direction: 0 forward, -1 backward, 2 strafe left, -2 strafe right
 {
-  int gogogo = 0;
   double target = inches / (3.1415 * 4);
 
   target *= 360*2;
@@ -248,25 +261,19 @@ void drivestartout(double inches,double completeTime = 5000, double maxSpeed = 1
     
     LeftFront.spin(directionType::fwd, motorSpeed , percentUnits::pct);
     LeftBack.spin(directionType::fwd, motorSpeed , percentUnits::pct);   
-    RightFront.spin(directionType::fwd, motorSpeed+anglePower, percentUnits::pct);
-    RightBack.spin(directionType::fwd, motorSpeed+anglePower, percentUnits::pct);
-    
+    RightFront.spin(directionType::fwd, motorSpeed+anglePower - correction, percentUnits::pct);
+    RightBack.spin(directionType::fwd, motorSpeed+anglePower - correction, percentUnits::pct);
+    if(error < 300){
+      LiftGrabby.setVelocity(100,percent);
+      LiftGrabby.spin(fwd);
+    }
     if(fabs(motorSpeed) < 1)
     {
+      LiftGrabby.stop(hold);
       break;
     }
-    
-    if(gogogo <= 5){
-      LeftLift.setVelocity(100,pct);
-      RightLift.setVelocity(100,pct);
-      LeftLift.spinToPosition(100,degrees);
-      RightLift.spinToPosition(100,degrees);
-    }else if(gogogo <= 20){
-      LeftLift.spinToPosition(0,degrees);
-      RightLift.spinToPosition(0,degrees);
-    }
-    gogogo++;
     task::sleep(20);
+    correction = 0;
   }
   LeftBack.stop(brakeType::hold);
   LeftFront.stop(brakeType::hold);
@@ -306,7 +313,7 @@ void lift(double angle){
   double power;
   
   while (error > 5 or error <-5){
-    error = angle - ((LeftLift.position(degrees) + RightLift.position(degrees)) / 2);
+    error = angle - LeftLift.position(degrees);
     integral = integral + (error)/10;
     if (integral > 2000){
       integral = 2000;
@@ -316,12 +323,24 @@ void lift(double angle){
     power = (error * kP) + (integral * kI) + (derivative + kD);
     
     LeftLift.spin(fwd, power, pct);
-    RightLift.spin(fwd, power, pct);
   }
   LeftLift.stop(hold);
-  RightLift.stop(hold);
 }
-
+void up(){
+  LiftGrabby.spinToPosition(0,degrees);
+  LiftGrabby.stop(hold);
+}
+void down(){
+  LiftGrabby.setVelocity(100,percent);
+  LiftGrabby.spinToPosition(220,degrees);
+  LiftGrabby.stop(hold);
+}
+void convyStart(){
+  Convy.spin(forward,100,pct);
+}
+void convyStop(){
+  Convy.stop();
+}
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
 /*                                                                           */
@@ -354,7 +373,7 @@ void pre_auton(void) {
 /*---------------------------------------------------------------------------*/
 
 void autonomous(void) {
-  drivestartout(24);
+  drivestartout(24,0);
   drive(-5);
   turn(30);
   drive(-13);
@@ -363,9 +382,7 @@ void autonomous(void) {
   grabby(1);
   drive(-11);
   grabby(2);
-  turn(0);
   drive(10);
-  deployconvy(1,5);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -395,15 +412,12 @@ void usercontrol(void) {
 
     if (Controller1.ButtonL1.pressing() == true){ //This is your Lift
       LeftLift.spin(forward, 100, pct);
-      RightLift.spin(forward, 100, pct);
     }
     else if(Controller1.ButtonL2.pressing() == true){    
       LeftLift.spin(reverse, 100, pct);
-      RightLift.spin(reverse, 100, pct); 
     
     }else{ //This is your Lift on drugs
       LeftLift.stop(hold);
-      RightLift.stop(hold);
     }
 
     if (Controller1.ButtonX.pressing() == true){ //This is your Grabby
@@ -422,6 +436,13 @@ void usercontrol(void) {
     LeftBack.spin(forward, leftWheelSplit, pct);
     RightBack.spin(forward, rightWheelSplit, pct);
 
+    if(Controller1.ButtonY.pressing()){
+      LiftGrabby.spin(fwd,100,pct);
+    } else if(Controller1.ButtonA.pressing()){
+      LiftGrabby.spin(reverse,100,pct);
+    }else{
+      LiftGrabby.stop(hold);
+    }
 
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
