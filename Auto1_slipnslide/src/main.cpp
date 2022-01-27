@@ -31,9 +31,6 @@ competition Competition;
 // define your global instances of motors and other devices here
 void turn(double angle, double inc)
 {
-  if (angle > 360){
-    angle = angle-360;
-  }
   double times = 0;
     double error = 500;
     double kP = 0.4;
@@ -383,8 +380,7 @@ void up(){
 }
 void down(){
   LiftGrabby.setVelocity(100,percent);
-  LiftGrabby.spinToPosition(22
-  0,degrees);
+  LiftGrabby.spinToPosition(220,degrees);
   LiftGrabby.stop(hold);
 }
 void convyStart(){
@@ -461,8 +457,8 @@ void autonomous(void) {
   wait(1,seconds);
   up();
   //drop big yellow
-  
-  turn(360,3);
+  drive(-5);
+  turn(355,0);
   drive(-24);
   grabby(2);
   lift(0);
