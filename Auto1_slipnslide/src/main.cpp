@@ -464,10 +464,14 @@ void autonomous(void) {
   lift(0);
   turn(420,0);
   drivestartout(16,0);
-  down();
   lift(1400);
   drive(24);
-  up();
+  up();turn(360,-3);
+  drive(-20);
+  grabby(1);
+  turn(450,0);
+  drivestartout(10,0);
+  drive(-50);
 
   //drop other small yellow
   convyStop();
