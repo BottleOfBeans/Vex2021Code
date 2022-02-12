@@ -12,6 +12,34 @@
 // RightFront           motor         19              
 // Convy                motor         18              
 // ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         17              
+// LeftBack             motor         2               
+// Grabby               motor         1               
+// LeftFront            motor         16              
+// LeftLift             motor         10              
+// LiftGrabby           motor         20              
+// Inertial7            inertial      7               
+// RightFront           motor         19              
+// Convy                motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         17              
+// LeftBack             motor         2               
+// Grabby               motor         1               
+// LeftFront            motor         16              
+// LeftLift             motor         10              
+// LiftGrabby           motor         20              
+// Inertial7            inertial      7               
+// RightFront           motor         19              
+// Convy                motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
@@ -423,14 +451,15 @@ void pre_auton(void) {
 
 void autonomous(void) {
   grabby(1);
-  drive(-8);
+  drive(-7);
   grabby(2);
   convyStart();
   drive(2);
   turn(91,0);
   drive(5);
   turn(90,-4);
-  drivestartout(21, 100);
+  wait(1,seconds);
+  drivestartout(21, 200);
   //first yellow
   lift(1430);
   turn(127,0);
@@ -441,18 +470,18 @@ void autonomous(void) {
   up();
   //dropyellow
   turn(90,1);
-  drive(-7);
+  drive(-6);
   turn(255,-1);
   //turn for big yellow
-  Convy.spin(reverse);
   grabby(1);
-  Convy.spin(fwd);
   lift(0);
   drivestartout(9,0);
   down();
   lift(1400);
   turn(270,0);
-  drive(24);
+  drive(12);
+  turn(270,0);
+  drive(12);
   lift(1250);
   wait(1,seconds);
   up();

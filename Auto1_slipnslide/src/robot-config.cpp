@@ -11,13 +11,13 @@ brain  Brain;
 controller Controller1 = controller(primary);
 motor RightBack = motor(PORT17, ratio18_1, true);
 motor LeftBack = motor(PORT2, ratio18_1, false);
-motor Grabby = motor(PORT1, ratio18_1, false);
+motor Grabby = motor(PORT1, ratio36_1, false);
 motor LeftFront = motor(PORT16, ratio18_1, false);
 motor LeftLift = motor(PORT10, ratio18_1, true);
 motor LiftGrabby = motor(PORT20, ratio18_1, false);
 inertial Inertial7 = inertial(PORT7);
 motor RightFront = motor(PORT19, ratio18_1, true);
-motor Convy = motor(PORT18, ratio18_1, true);
+motor Convy = motor(PORT18, ratio18_1, false);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable
