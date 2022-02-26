@@ -2,9 +2,261 @@
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
 // Controller1          controller                    
+// RightBack            motor         5               
+// LeftBack             motor         20              
+// Grabby               motor         10              
+// LeftFront            motor         1               
+// LeftLift             motor         11              
+// LiftGrabby           motor         15              
+// Inertial7            inertial      18              
+// RightFront           motor         6               
+// Convy                motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         5               
+// LeftBack             motor         20              
+// Grabby               motor         10              
+// LeftFront            motor         1               
+// LeftLift             motor         12              
+// LiftGrabby           motor         15              
+// Inertial7            inertial      18              
+// RightFront           motor         6               
+// Convy                motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         5               
+// LeftBack             motor         20              
+// Grabby               motor         4               
+// LeftFront            motor         1               
+// LeftLift             motor         12              
+// LiftGrabby           motor         15              
+// Inertial7            inertial      18              
+// RightFront           motor         6               
+// Convy                motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         5               
+// LeftBack             motor         20              
+// Grabby               motor         4               
+// LeftFront            motor         1               
+// LeftLift             motor         12              
+// LiftGrabby           motor         15              
+// Inertial7            inertial      18              
+// RightFront           motor         10              
+// Convy                motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         5               
+// LeftBack             motor         20              
+// Grabby               motor         4               
+// LeftFront            motor         1               
+// LeftLift             motor         12              
+// LiftGrabby           motor         15              
+// Inertial7            inertial      18              
+// RightFront           motor         10              
+// Convy                motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         5               
+// LeftBack             motor         20              
+// Grabby               motor         4               
+// LeftFront            motor         1               
+// LeftLift             motor         12              
+// LiftGrabby           motor         15              
+// Inertial7            inertial      18              
+// RightFront           motor         6               
+// Convy                motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         5               
+// LeftBack             motor         20              
+// Grabby               motor         4               
+// LeftFront            motor         1               
+// LeftLift             motor         11              
+// LiftGrabby           motor         15              
+// Inertial7            inertial      18              
+// RightFront           motor         6               
+// Convy                motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         5               
+// LeftBack             motor         20              
+// Grabby               motor         10              
+// LeftFront            motor         1               
+// LeftLift             motor         11              
+// LiftGrabby           motor         15              
+// Inertial7            inertial      18              
+// RightFront           motor         6               
+// Convy                motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         5               
+// LeftBack             motor         2               
+// Grabby               motor         10              
+// LeftFront            motor         1               
+// LeftLift             motor         11              
+// LiftGrabby           motor         15              
+// Inertial7            inertial      18              
+// RightFront           motor         6               
+// Convy                motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         5               
+// LeftBack             motor         2               
+// Grabby               motor         10              
+// LeftFront            motor         1               
+// LeftLift             motor         11              
+// LiftGrabby           motor         15              
+// Inertial7            inertial      7               
+// RightFront           motor         6               
+// Convy                motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         5               
+// LeftBack             motor         2               
+// Grabby               motor         10              
+// LeftFront            motor         1               
+// LeftLift             motor         11              
+// LiftGrabby           motor         15              
+// Inertial7            inertial      7               
+// RightFront           motor         6               
+// Convy                motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         5               
+// LeftBack             motor         2               
+// Grabby               motor         10              
+// LeftFront            motor         1               
+// LeftLift             motor         11              
+// LiftGrabby           motor         20              
+// Inertial7            inertial      7               
+// RightFront           motor         6               
+// Convy                motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         5               
+// LeftBack             motor         2               
+// Grabby               motor         10              
+// LeftFront            motor         1               
+// LeftLift             motor         19              
+// LiftGrabby           motor         20              
+// Inertial7            inertial      7               
+// RightFront           motor         6               
+// Convy                motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         5               
+// LeftBack             motor         2               
+// Grabby               motor         12              
+// LeftFront            motor         1               
+// LeftLift             motor         19              
+// LiftGrabby           motor         20              
+// Inertial7            inertial      7               
+// RightFront           motor         6               
+// Convy                motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         5               
+// LeftBack             motor         2               
+// Grabby               motor         12              
+// LeftFront            motor         1               
+// LeftLift             motor         10              
+// LiftGrabby           motor         20              
+// Inertial7            inertial      7               
+// RightFront           motor         6               
+// Convy                motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         5               
+// LeftBack             motor         2               
+// Grabby               motor         12              
+// LeftFront            motor         1               
+// LeftLift             motor         10              
+// LiftGrabby           motor         20              
+// Inertial7            inertial      7               
+// RightFront           motor         6               
+// Convy                motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         5               
+// LeftBack             motor         2               
+// Grabby               motor         12              
+// LeftFront            motor         1               
+// LeftLift             motor         10              
+// LiftGrabby           motor         20              
+// Inertial7            inertial      7               
+// RightFront           motor         19              
+// Convy                motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
 // RightBack            motor         17              
 // LeftBack             motor         2               
-// Grabby               motor         1               
+// Grabby               motor         12              
+// LeftFront            motor         1               
+// LeftLift             motor         10              
+// LiftGrabby           motor         20              
+// Inertial7            inertial      7               
+// RightFront           motor         19              
+// Convy                motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         17              
+// LeftBack             motor         2               
+// Grabby               motor         12              
 // LeftFront            motor         16              
 // LeftLift             motor         10              
 // LiftGrabby           motor         20              
@@ -25,6 +277,146 @@
 // Inertial7            inertial      7               
 // RightFront           motor         19              
 // Convy                motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         17              
+// LeftBack             motor         2               
+// Grabby               motor         1               
+// LeftFront            motor         9               
+// LeftLift             motor         10              
+// LiftGrabby           motor         20              
+// Inertial7            inertial      7               
+// RightFront           motor         19              
+// Convy                motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         17              
+// LeftBack             motor         2               
+// Grabby               motor         1               
+// LeftFront            motor         9               
+// LeftLift             motor         10              
+// LiftGrabby           motor         20              
+// Inertial7            inertial      7               
+// RightFront           motor         6               
+// Convy                motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         17              
+// LeftBack             motor         2               
+// Grabby               motor         1               
+// LeftFront            motor         9               
+// LeftLift             motor         10              
+// LiftGrabby           motor         20              
+// Inertial7            inertial      7               
+// RightFront           motor         6               
+// Convy                motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         17              
+// LeftBack             motor         2               
+// Grabby               motor         1               
+// LeftFront            motor         9               
+// LeftLift             motor         10              
+// LiftGrabby           motor         20              
+// Inertial7            inertial      18              
+// RightFront           motor         6               
+// Convy                motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         17              
+// LeftBack             motor         2               
+// Grabby               motor         1               
+// LeftFront            motor         9               
+// LeftLift             motor         10              
+// LiftGrabby           motor         15              
+// Inertial7            inertial      18              
+// RightFront           motor         6               
+// Convy                motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         17              
+// LeftBack             motor         2               
+// Grabby               motor         1               
+// LeftFront            motor         9               
+// LeftLift             motor         11              
+// LiftGrabby           motor         15              
+// Inertial7            inertial      18              
+// RightFront           motor         6               
+// Convy                motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         17              
+// LeftBack             motor         2               
+// Grabby               motor         1               
+// LeftFront            motor         13              
+// LeftLift             motor         11              
+// LiftGrabby           motor         15              
+// Inertial7            inertial      18              
+// RightFront           motor         6               
+// Convy                motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         17              
+// LeftBack             motor         2               
+// Grabby               motor         10              
+// LeftFront            motor         13              
+// LeftLift             motor         11              
+// LiftGrabby           motor         15              
+// Inertial7            inertial      18              
+// RightFront           motor         6               
+// Convy                motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         17              
+// LeftBack             motor         2               
+// Grabby               motor         10              
+// LeftFront            motor         1               
+// LeftLift             motor         11              
+// LiftGrabby           motor         15              
+// Inertial7            inertial      18              
+// RightFront           motor         6               
+// Convy                motor         16              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// RightBack            motor         17              
+// LeftBack             motor         20              
+// Grabby               motor         10              
+// LeftFront            motor         1               
+// LeftLift             motor         11              
+// LiftGrabby           motor         15              
+// Inertial7            inertial      18              
+// RightFront           motor         6               
+// Convy                motor         16              
 // ---- END VEXCODE CONFIGURED DEVICES ----
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
@@ -43,9 +435,9 @@
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
-/*    Author:       VEX                                                       */
-/*    Created:      Thu Sep 26 2019                                           */
-/*    Description:  Competition Template                                      */
+/*    Author:       4610c                                                     */
+/*    Created:      never                                                     */
+/*    Description:  4610c bot code reddit.com/woosh                           */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 
@@ -451,14 +843,13 @@ void pre_auton(void) {
 
 void autonomous(void) {
   grabby(1);
-  drive(-7);
+  drive(-8);
   grabby(2);
   convyStart();
   drive(2);
   turn(91,0);
   drive(5);
   turn(90,-4);
-  wait(1,seconds);
   drivestartout(21, 200);
   //first yellow
   lift(1430);
@@ -479,9 +870,10 @@ void autonomous(void) {
   down();
   lift(1400);
   turn(270,0);
-  drive(12);
+  wait(0.5,seconds);
   turn(270,0);
   drive(12);
+  drive(24);
   lift(1250);
   wait(1,seconds);
   up();

@@ -1,9 +1,9 @@
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
-/*    Module:       vex.h                                                     */
-/*    Author:       Vex Robotics                                              */
-/*    Created:      1 Feb 2019                                                */
-/*    Description:  Default header for V5 projects                            */
+/*    Module:       main.cpp                                                  */
+/*    Author:       4610c                                                     */
+/*    Created:      never                                                     */
+/*    Description:  4610c bot code reddit.com/woosh                           */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 //
