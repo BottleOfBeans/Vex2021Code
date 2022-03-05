@@ -355,7 +355,6 @@ void lift(double angle){
     derivative = error - prevError;
     prevError = error;
     power = error;//(error * kP) + (integral * kI) + (derivative + kD);
-    
     LeftLift.spin(fwd, power, pct);
   }
   LeftLift.stop(hold);
@@ -408,17 +407,18 @@ void pre_auton(void) {
 /*---------------------------------------------------------------------------*/
 
 void autonomous(void) {
+  LeftLift.resetPosition();
   grabby(1);
   drive(-8);
   grabby(2);
   convyStart();
   drive(2);
-  turn(91,0);
+  turn(89,0);
   drive(5);
-  turn(90,-4);
+  turn(88,-4);
   drivestartout(21, 200);
   //first yellow
-  lift(1430);
+  lift(1400);
   turn(127,0);
   drive(26);
   turn(87,-6);
@@ -452,16 +452,19 @@ void autonomous(void) {
   drivestartout(16,0);
   lift(1400);
   drive(24);
-  up();turn(360,-3);
-  drive(-20);
+  up();
+  drive(-5);
+  turn(360,-4);
   grabby(1);
+  drive(10);
+  /*
   turn(450,0);
   drivestartout(10,0);
   drive(-50);
 
   //drop other small yellow
   convyStop();
-
+  */
 }
 
 /*---------------------------------------------------------------------------*/

@@ -315,11 +315,11 @@ void autonomous(void) {
   drive(10);
   lift(200);
   deployconvy(1,1);
-  deployconvy(2,0.1);
+  deployconvy(2,0.3);
   deployconvy(1,1);
-  deployconvy(2,0.1);
+  deployconvy(2,0.3);
   deployconvy(1,1);
-  deployconvy(2,0.1);
+  deployconvy(2,0.3);
   grabby(1);
 }
 
